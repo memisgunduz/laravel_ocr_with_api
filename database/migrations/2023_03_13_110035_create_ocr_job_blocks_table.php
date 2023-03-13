@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('ocr_job_blocks', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('file_path')->nullable();
-            $table->longText('file_to_text')->nullable();
+            $table->integer("block_id");
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        //
     }
 };

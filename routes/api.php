@@ -18,4 +18,5 @@ use App\Http\Controllers\OcrController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/dispatchJob', [OcrController::class, 'dispatchJob'])->name('dispatchJob');
 Route::post('/upload-file', [OcrController::class, 'fileUpload'])->name('fileUpload');
