@@ -44,12 +44,15 @@ class OcrJob implements ShouldQueue, ShouldBeUnique
         $ocrController = new OcrController();
         $result = $ocrController->ocr($this->fileName, $this->filePath, $this->extension, $this->id);
         $data = new GetData();
-
-        $data->json_data = json_encode($result->getData());
-        $data->save();
+        if($result->getData()->success){
+            $data->json_data = json_encode($result->getData());
+            $data->save();
+        }else{
+            $fileType=$this->extension;
+            $ocrController->deleteFile(public_path($ocrController->getFolderName($fileType)  . $this->fileName));
+        }
         $ocrController->unblockJob($this->id);
     }
-
     public function uniqueId()
     {
         return $this->id;
